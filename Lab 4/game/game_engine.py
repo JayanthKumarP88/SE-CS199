@@ -1,12 +1,13 @@
 import pygame
 import time
-from game.maze import generate_maze, CELL
+from game.maze import generate_maze, solve_maze, CELL
 from game.player import Player
 
 FPS = 60
 BG = (240, 235, 220)
 WALL_COLOR = (40, 40, 60)
 EXIT_COLOR = (80, 200, 80)
+PATH_COLOR = (255, 200, 80)
 COLS, ROWS = 15, 13
 
 WIDTH = COLS * CELL
@@ -29,13 +30,18 @@ class GameEngine:
         self.start_time = time.time()
         self.elapsed = 0
         self.won = False
+        self.show_path = False
+        self.solution_path = solve_maze(self.walls, (0,0), (ROWS-1, COLS-1))
 
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
-                self.reset()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+                    self.reset()
+                elif event.key == pygame.K_h:
+                    self.show_path = not self.show_path
         return True
 
     def update(self):
@@ -46,6 +52,13 @@ class GameEngine:
         self.elapsed = time.time() - self.start_time
         if self.player.rect.colliderect(self.exit_rect):
             self.won = True
+
+    def draw_path(self):
+        pad = 8
+        for r, c in self.solution_path:
+            x, y = c * CELL, r * CELL
+            path_rect = pygame.Rect(x + pad, y + pad, CELL - 2 * pad, CELL - 2 * pad)
+            pygame.draw.rect(self.screen, PATH_COLOR, path_rect, border_radius=4)
 
     def draw_maze(self):
         wall_w = 3
@@ -60,6 +73,8 @@ class GameEngine:
 
     def draw(self):
         self.screen.fill(BG)
+        if self.show_path:
+            self.draw_path()
         self.draw_maze()
         pygame.draw.rect(self.screen, EXIT_COLOR, self.exit_rect, border_radius=4)
         ex_label = self.font.render("EXIT", True, (20,80,20))
@@ -68,7 +83,7 @@ class GameEngine:
 
         hud = pygame.Rect(0, ROWS*CELL, WIDTH, 60)
         pygame.draw.rect(self.screen, (30,30,50), hud)
-        time_surf = self.font.render(f"Time: {self.elapsed:.1f}s   R = New Maze", True, (200,200,200))
+        time_surf = self.font.render(f"Time: {self.elapsed:.1f}s   R = New  H = Hint", True, (200,200,200))
         self.screen.blit(time_surf, (10, ROWS*CELL+18))
 
         if self.won:

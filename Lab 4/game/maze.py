@@ -32,6 +32,48 @@ def generate_maze(cols, rows):
             stack.pop()
     return walls
 
+from collections import deque
+
+def solve_maze(walls, start=(0,0), end=None):
+    """BFS solver to find shortest path from start cell to end cell."""
+    rows = len(walls)
+    cols = len(walls[0])
+    if end is None:
+        end = (rows - 1, cols - 1)
+
+    queue = deque([start])
+    visited = {start}
+    parent = {}
+    dirs = [(-1, 0, 0), (1, 0, 1), (0, 1, 2), (0, -1, 3)]  # dr, dc, wall_idx
+
+    found = False
+    while queue:
+        curr = queue.popleft()
+        if curr == end:
+            found = True
+            break
+        r, c = curr
+        for dr, dc, w_idx in dirs:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < rows and 0 <= nc < cols:
+                if not walls[r][c][w_idx] and (nr, nc) not in visited:
+                    visited.add((nr, nc))
+                    parent[(nr, nc)] = curr
+                    queue.append((nr, nc))
+
+    if not found:
+        return []
+
+    path = []
+    curr = end
+    while curr in parent:
+        path.append(curr)
+        curr = parent[curr]
+    path.append(start)
+    path.reverse()
+    return path
+
 def cell_rect(r, c, import_pygame=None):
     import pygame
     return pygame.Rect(c*CELL, r*CELL, CELL, CELL)
+
