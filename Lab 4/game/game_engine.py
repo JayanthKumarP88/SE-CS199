@@ -31,6 +31,7 @@ class GameEngine:
         self.elapsed = 0
         self.won = False
         self.show_path = False
+        self.fog_enabled = True
         self.solution_path = solve_maze(self.walls, (0,0), (ROWS-1, COLS-1))
 
     def handle_events(self):
@@ -42,6 +43,8 @@ class GameEngine:
                     self.reset()
                 elif event.key == pygame.K_h:
                     self.show_path = not self.show_path
+                elif event.key == pygame.K_f:
+                    self.fog_enabled = not self.fog_enabled
         return True
 
     def update(self):
@@ -59,6 +62,13 @@ class GameEngine:
             x, y = c * CELL, r * CELL
             path_rect = pygame.Rect(x + pad, y + pad, CELL - 2 * pad, CELL - 2 * pad)
             pygame.draw.rect(self.screen, PATH_COLOR, path_rect, border_radius=4)
+
+    def draw_fog(self):
+        fog_surf = pygame.Surface((WIDTH, ROWS * CELL), pygame.SRCALPHA)
+        fog_surf.fill((10, 10, 20, 255))
+        radius = 3 * CELL
+        pygame.draw.circle(fog_surf, (0, 0, 0, 0), self.player.rect.center, radius)
+        self.screen.blit(fog_surf, (0, 0))
 
     def draw_maze(self):
         wall_w = 3
@@ -81,9 +91,12 @@ class GameEngine:
         self.screen.blit(ex_label, (self.exit_rect.x+2, self.exit_rect.y+4))
         self.player.draw(self.screen)
 
+        if self.fog_enabled:
+            self.draw_fog()
+
         hud = pygame.Rect(0, ROWS*CELL, WIDTH, 60)
         pygame.draw.rect(self.screen, (30,30,50), hud)
-        time_surf = self.font.render(f"Time: {self.elapsed:.1f}s   R = New  H = Hint", True, (200,200,200))
+        time_surf = self.font.render(f"Time: {self.elapsed:.1f}s   R = New  H = Hint  F = Fog", True, (200,200,200))
         self.screen.blit(time_surf, (10, ROWS*CELL+18))
 
         if self.won:
