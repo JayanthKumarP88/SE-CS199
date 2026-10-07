@@ -28,12 +28,32 @@ class Player:
             self.rect = new_rect
 
     def _hits_wall(self, rect, walls, rows, cols):
-        # Check corners of player rect against wall segments
-        for px, py in [(rect.left, rect.top),(rect.right-1,rect.top),(rect.left,rect.bottom-1),(rect.right-1,rect.bottom-1)]:
-            cr = py // CELL
-            cc = px // CELL
-            if cr < 0 or cr >= rows or cc < 0 or cc >= cols:
-                return True
+        # 1. Outer boundary check
+        if rect.left < 0 or rect.top < 0 or rect.right > cols * CELL or rect.bottom > rows * CELL:
+            return True
+
+        # 2. Check grid walls for all cells intersecting rect
+        min_r = max(0, rect.top // CELL)
+        max_r = min(rows - 1, (rect.bottom - 1) // CELL)
+        min_c = max(0, rect.left // CELL)
+        max_c = min(cols - 1, (rect.right - 1) // CELL)
+
+        for r in range(min_r, max_r + 1):
+            for c in range(min_c, max_c + 1):
+                w = walls[r][c]  # [N, S, E, W]
+                # North wall (y = r * CELL)
+                if w[0] and rect.top < r * CELL < rect.bottom:
+                    return True
+                # South wall (y = (r + 1) * CELL)
+                if w[1] and rect.top < (r + 1) * CELL < rect.bottom:
+                    return True
+                # East wall (x = (c + 1) * CELL)
+                if w[2] and rect.left < (c + 1) * CELL < rect.right:
+                    return True
+                # West wall (x = c * CELL)
+                if w[3] and rect.left < c * CELL < rect.right:
+                    return True
+
         return False
 
     def draw(self, screen):
