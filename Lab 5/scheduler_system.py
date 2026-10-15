@@ -13,6 +13,7 @@ equipment_pool = {"projector": 2, "microphone": 4, "webcam": 1}
 conflicts = []
 STATE = {"next_reservation": 1}
 
+
 def schedule_room(room_id, time_slot, equipment_list=None):
     """Schedule a room for a designated time slot with optional equipment."""
     if equipment_list is None:
@@ -36,8 +37,9 @@ def schedule_room(room_id, time_slot, equipment_list=None):
     STATE["next_reservation"] += 1
     return current_id
 
+
 def cancel_reservation(reservation_id):
-    """Cancel an existing reservation and return allocated equipment to pool."""
+    """Cancel an existing reservation and return equipment to pool."""
     if reservation_id not in reservations:
         return False
 
@@ -47,15 +49,18 @@ def cancel_reservation(reservation_id):
     del reservations[reservation_id]
     return True
 
+
 def slot_hours(time_slot):
     """Calculate duration in hours for a time slot given as 'start-end'."""
     start, end = str(time_slot).split("-")
     return abs(int(end) - int(start))
 
+
 def export_schedule(file="schedule.json"):
     """Export current reservations to a JSON file."""
     with open(file, "w", encoding="utf-8") as f_out:
         json.dump(reservations, f_out, indent=4)
+
 
 def log_conflicts(file="conflicts.log"):
     """Log recorded booking conflicts to a file and display contents."""
@@ -65,6 +70,7 @@ def log_conflicts(file="conflicts.log"):
 
     with open(file, "r", encoding="utf-8") as f_in:
         print(f_in.read(), end="")
+
 
 def main():
     """Execute room scheduling operations and display results."""
@@ -84,6 +90,7 @@ def main():
     log_conflicts()
     print("Equipment left:", equipment_pool)
     print("Reservations:", reservations)
+
 
 if __name__ == "__main__":
     main()

@@ -1,51 +1,87 @@
 # Lab 5: Static Code Analysis — Conference Room & Equipment Scheduler
 
-**Your file:** `scheduler_system.py`
+**Course:** Software Engineering (SE) Lab  
+**Student Name:** Jayanth Kumar P  
+**SRN:** PES1UG24CS199  
+**Assigned Template Repository:** [SETAPESU26/L5_12_room_scheduler](https://github.com/SETAPESU26/L5_12_room_scheduler)  
+**Main Submission Repository:** [JayanthKumarP88/SE-CS199](https://github.com/JayanthKumarP88/SE-CS199)  
 
-Follow the lab handout for the full instructions.
+---
 
-## About the program
+## Overview
 
-A meeting-room scheduler. It books rooms for time slots, allocates equipment such as projectors and webcams, logs double bookings and exports the schedule to `schedule.json`.
+This lab focuses on enhancing Python code quality, security, and maintainability by applying industry-standard static code analysis tools:
+- **Bandit:** AST-based security vulnerability and threat auditor.
+- **Pylint:** Strict code reviewer for logic errors, design smells, and structural flaws.
+- **Flake8:** PEP 8 style, syntax, and formatting checker.
 
-The code works, but only just. It has quality, style and security problems of the kind Pylint, Flake8 and Bandit are built to find.
+The target system is `scheduler_system.py`, a conference room and equipment scheduler that reserves rooms for time slots, allocates equipment pools, logs booking conflicts, and exports schedules to JSON.
 
-## What to do
+---
 
-1. **Run it first** and read the output carefully:
-   ```bash
-   python scheduler_system.py
-   ```
-   It asks one question. Press Enter to use the default, then try a few inputs of your own. Not every problem in this file is something a tool will flag, so pay attention to output that looks wrong.
+## Deliverables & Analysis Artifacts
 
-2. **Install the tools:**
-   ```bash
-   pip install pylint bandit flake8
-   ```
+| Deliverable | Description | Link |
+| :--- | :--- | :--- |
+| **Cleaned Script** | Fully refactored and verified Python script | [`scheduler_system.py`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/scheduler_system.py) |
+| **Issue Documentation** | Comprehensive table of identified issues, severities, and fixes | [`issues.md`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/issues.md) |
+| **Reflection Report** | Detailed answers to the four lab reflection questions | [`reflection.md`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/reflection.md) |
+| **Student Handout** | Official lab handout instructions | [`Lab_5_Static_Code_Analysis_Student_handout.pdf`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/Lab_5_Static_Code_Analysis_Student_handout.pdf) |
+| **Pylint Reports** | Before (5.60/10) vs After (**10.00/10**) analysis reports | [`pylint_report_before.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/pylint_report_before.txt) \| [`pylint_report_after.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/pylint_report_after.txt) |
+| **Bandit Reports** | Before (1 High, 1 Low) vs After (**0 issues**) reports | [`bandit_report_before.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/bandit_report_before.txt) \| [`bandit_report_after.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/bandit_report_after.txt) |
+| **Flake8 Reports** | Before (13 violations) vs After (**0 violations**) reports | [`flake8_report_before.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/flake8_report_before.txt) \| [`flake8_report_after.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/flake8_report_after.txt) |
 
-3. **Run the analysis** and save the reports:
-   ```bash
-   pylint scheduler_system.py > pylint_report.txt
-   bandit -r scheduler_system.py > bandit_report.txt
-   flake8 scheduler_system.py > flake8_report.txt
-   ```
+---
 
-4. **Document the issues** in `issues.md` using this table (at least 4 rows, high and medium severity first):
+## Results & Quality Metrics Comparison
 
-   | Issue | Type | Line(s) | Description | Fix Approach |
-   |-------|------|---------|-------------|--------------|
-   | ... | ... | ... | ... | ... |
+```
++--------------------+-------------------------+-------------------------+
+| Metric / Tool      | Baseline (Before)       | Cleaned (After Fixes)   |
++--------------------+-------------------------+-------------------------+
+| Pylint Score       | 5.60 / 10.00            | 10.00 / 10.00 (+4.40)   |
+| Bandit Issues      | 1 High (B605), 1 Low    | 0 issues (Clean)        |
+| Flake8 Violations  | 13 style/syntax errors  | 0 violations (Clean)    |
+| Program Execution  | Failed (cat not found)  | Passed successfully     |
++--------------------+-------------------------+-------------------------+
+```
 
-5. **Fix the code.** Fix at least 4 of the issues you documented, then rerun all three tools to confirm they are gone. Repeat until you are satisfied. The program should still do its job when you are done.
+---
 
-6. **Reflect.** Answer the four reflection questions from the handout in `reflection.md`.
+## How to Run
 
-## Deliverables
+### 1. Prerequisites & Virtual Environment
+```bash
+python -m venv venv
+# Windows:
+.\venv\Scripts\activate
+# Linux/macOS:
+source venv/bin/activate
 
-1. `scheduler_system.py`: your cleaned version, with at least 4 issues fixed.
-2. `issues.md`: the completed issue table.
-3. `reflection.md`: your answers to the reflection questions.
+pip install pylint bandit flake8
+```
 
-**Target:** aim for a Pylint score above 9.5 on your final file. A perfect 10.00/10 is very good.
+### 2. Run Static Analysis Tools
+```bash
+# Bandit security audit
+python -m bandit -r scheduler_system.py
 
-Be ready to explain the bugs you found and how you fixed them. You may be called on to present.
+# Pylint quality evaluation
+python -m pylint scheduler_system.py
+
+# Flake8 style compliance check
+python -m flake8 scheduler_system.py
+```
+
+### 3. Run the Program
+```bash
+python scheduler_system.py
+```
+
+---
+
+## 3-Commit Progression Summary
+
+1. **Commit 1 (`fix(security)`):** Resolved Bandit vulnerabilities — replaced unsafe `os.system("cat ...")` shell process with native Python file reading (`B605`), and eliminated bare `except: pass` exception suppression (`B110`).
+2. **Commit 2 (`fix(quality)`):** Resolved Pylint design & logic issues — replaced mutable default argument `equipment_list=[]` (`W0102`), added PEP 257 docstrings, encapsulated state to remove global mutation warnings, applied `with open(...)` context managers, and elevated score to **10.00/10**.
+3. **Commit 3 (`style(pep8)`):** Resolved Flake8 formatting issues — enforced PEP 8 line length limits (<= 79 chars), ensured two blank lines between top-level functions, removed unused variables, generated final reports, and added complete issue tracking and reflection documentation.
