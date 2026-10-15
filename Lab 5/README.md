@@ -27,9 +27,32 @@ The target system is `scheduler_system.py`, a conference room and equipment sche
 | **Issue Documentation** | Comprehensive table of identified issues, severities, and fixes | [`issues.md`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/issues.md) |
 | **Reflection Report** | Detailed answers to the four lab reflection questions | [`reflection.md`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/reflection.md) |
 | **Student Handout** | Official lab handout instructions | [`Lab_5_Static_Code_Analysis_Student_handout.pdf`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/Lab_5_Static_Code_Analysis_Student_handout.pdf) |
-| **Pylint Reports** | Before (5.60/10) vs After (**10.00/10**) analysis reports | [`pylint_report_before.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/pylint_report_before.txt) \| [`pylint_report_after.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/pylint_report_after.txt) |
-| **Bandit Reports** | Before (1 High, 1 Low) vs After (**0 issues**) reports | [`bandit_report_before.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/bandit_report_before.txt) \| [`bandit_report_after.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/bandit_report_after.txt) |
-| **Flake8 Reports** | Before (13 violations) vs After (**0 violations**) reports | [`flake8_report_before.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/flake8_report_before.txt) \| [`flake8_report_after.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/flake8_report_after.txt) |
+| **Pylint Reports** | Before (5.60/10) vs After (**10.00/10**) analysis reports | [`reports/before/pylint_report.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/reports/before/pylint_report.txt) \| [`reports/after/pylint_report.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/reports/after/pylint_report.txt) |
+| **Bandit Reports** | Before (1 High, 1 Low) vs After (**0 issues**) reports | [`reports/before/bandit_report.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/reports/before/bandit_report.txt) \| [`reports/after/bandit_report.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/reports/after/bandit_report.txt) |
+| **Flake8 Reports** | Before (13 violations) vs After (**0 violations**) reports | [`reports/before/flake8_report.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/reports/before/flake8_report.txt) \| [`reports/after/flake8_report.txt`](file:///c:/Users/vegit/Downloads/SE-CS199/Lab%205/reports/after/flake8_report.txt) |
+
+---
+
+## Directory Structure
+
+```
+Lab 5/
+├── .gitignore
+├── issues.md
+├── Lab_5_Static_Code_Analysis_Student_handout.pdf
+├── README.md
+├── reflection.md
+├── scheduler_system.py
+└── reports/
+    ├── before/
+    │   ├── bandit_report.txt
+    │   ├── flake8_report.txt
+    │   └── pylint_report.txt
+    └── after/
+        ├── bandit_report.txt
+        ├── flake8_report.txt
+        └── pylint_report.txt
+```
 
 ---
 
