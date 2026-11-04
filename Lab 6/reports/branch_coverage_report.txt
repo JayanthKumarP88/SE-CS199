@@ -1,0 +1,22 @@
+==============================================================================
+BRANCH COVERAGE REPORT (BranchCoverageTest_amusement_park_ride_access.py)
+==============================================================================
+
+Command: coverage run --branch -m pytest BranchCoverageTest_amusement_park_ride_access.py
+Report: coverage report -m
+
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.2.0, pluggy-1.7.0
+rootdir: C:\Users\Jayanth\SE-CS199\Lab 6
+collected 23 items
+
+BranchCoverageTest_amusement_park_ride_access.py ....................... [100%]
+
+============================== 23 passed in 0.07s ==============================
+
+Name                                               Stmts   Miss Branch BrPart  Cover   Missing
+----------------------------------------------------------------------------------------------
+BranchCoverageTest_amusement_park_ride_access.py      97      0      0      0   100%
+amusement_park_ride_access.py                         58      0     40      0   100%
+----------------------------------------------------------------------------------------------
+TOTAL                                                155      0     40      0   100%
