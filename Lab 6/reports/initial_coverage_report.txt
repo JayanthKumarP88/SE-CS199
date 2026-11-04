@@ -1,0 +1,24 @@
+==============================================================================
+INITIAL CODE AND BRANCH COVERAGE REPORT (Starter test_amusement_park.py)
+==============================================================================
+
+Command: coverage run -m pytest test_amusement_park.py
+Report: coverage report -m
+
+Name                            Stmts   Miss  Cover   Missing
+-------------------------------------------------------------
+amusement_park_ride_access.py      58     30    48%   3, 10, 16, 18, 22-23, 33-34, 37-41, 43-44, 46, 51, 56, 58, 63-75
+test_amusement_park.py              7      0   100%
+-------------------------------------------------------------
+TOTAL                              65     30    54%
+
+
+Command: coverage run --branch -m pytest test_amusement_park.py
+Report: coverage report -m
+
+Name                            Stmts   Miss Branch BrPart  Cover   Missing
+---------------------------------------------------------------------------
+amusement_park_ride_access.py      58     30     40     12    45%   3, 10, 16, 18, 22-23, 33-34, 37-41, 43-44, 46, 51, 56, 58, 63-75
+test_amusement_park.py              7      0      0      0   100%
+---------------------------------------------------------------------------
+TOTAL                              65     30     40     12    49%
